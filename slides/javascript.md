@@ -1,7 +1,27 @@
 Javascript
 ===
 
-- File Naming
+###Logical Layers
+
+- Global
+- Application / System
+- Page / Route
+- Data
+- Layout
+  + The layouts described here will likely be similar to the layouts defined in CSS.  
+  + Common Examples: 
+    *  Site Header
+    *  Site Footer
+    *  Article
+- Modules
+  + At this layer we describe the modules of the site, often definfing how individual components should operate.  
+  + Common examples: 
+    * Hero Slider 
+    * User Card
+    * Dialog
+
+###File Naming
+
 - Variable Naming Conventions
   - Variables
   - Objects
