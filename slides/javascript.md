@@ -3,18 +3,19 @@ Javascript
 
 ##Logical Layers
 
-- Global
-- Library
+It's generally a smart idea to seperate your project's components into different objects and files.  This helps break up complex logic up to manageable pieces, hopefully avoiding the spegetti code world.
+
+- Global (External Libraries)
 - System (Application)
 - Page (Routes)
 - Data (Collections/Models)
-- Layout (View)
+- Layouts (Views)
     + The layouts described here will likely be similar to the layouts defined in CSS.  
     + Examples: 
         *  Site Header
         *  Site Footer
         *  Article
-- Modules (View)
+- Modules (Views)
     + At this layer we describe the modules of the site, often definfing how individual components should operate.  
     + Examples: 
         * Hero Slider 
@@ -23,14 +24,23 @@ Javascript
 
 ##File Naming
 
-Files should be broken up into small, maintainable sections; 1 component to a file.  Use a tool like concat or file_include to combine all individual components into a single file.
+Files should be broken up into small, maintainable sections; 1 component per file.  Use a tool like concat or file_include to combine all individual components into a single file.
 
-In larger projects it is wise to categorize files into folders based on the logical layers defined above.
+In larger projects it is wise to categorize files into folders by type and share a global namespace.  
 
 ####Examples
 
-- __contact-model.js__ or __models/contact.js__ -- A model object named `ContactModel` for storing contact data
-- __usercard-view.js__ or __views/usercard.js__ -- A view object named `UsercardView` for handling UI events
+A model object named __ContactModel__ for storing contact data:
+`contact-model.js` or `models/contact.js`
+
+A view object named __UsercardView__ for handling UI events:
+`usercard-view.js` or `views/usercard.js`
+
+A general file with utility functions:
+`utilities.js` or `shared/utilities.js`
+
+
+##Variable Naming
 
 
 
@@ -39,7 +49,8 @@ In larger projects it is wise to categorize files into folders based on the logi
     - Objects
     - Methods
     - Static Methods
-- Logical Layering
+
+
 - Message Passing
 - Jquery intro to Monads
 - Functional Programming
