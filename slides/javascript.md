@@ -28,7 +28,7 @@ Files should be broken up into small, maintainable sections; 1 component per fil
 
 In larger projects it is wise to categorize files into folders by type and share a global namespace.  
 
-####Examples
+#####Examples
 
 A model object named __ContactModel__ for storing contact data:
 `contact-model.js` or `models/contact.js`
@@ -42,17 +42,61 @@ A general file with utility functions:
 
 ##Variable Naming
 
+Different types of variables should be written differently.
+
+###Object Definitions & Namespaces
+
+Object definitions are written in capitalized form, multiple word names have each word Capitalized.  These are usually constructors, any instances created from a definition should be named like any other variable.  Namespaces are also written in capitalized form.
+
+#####Examples
+
+- `MyObjectDefinition`
+- `ApplicationView`
+- `Namespace.AppRouter`
+- `Namespace.ProfileView`
 
 
-- Variable Naming Conventions
-    - Variables
-    - Objects
-    - Methods
-    - Static Methods
+###Variables, Methods & Object Instances
+
+Variables, Methods (both static and instance), and Object Instances should all be named in camelCase form.  
+
+#####Examples
+
+- `index`
+- `tailsCount`
+- `myObjectInstance`
+- `myObjectInstance.navigate()`
+- `MyDefinition.staticMethodCall()`
 
 
-- Message Passing
+##Message Passing
+
+As applications get bigger there offten is a need to communicate between the various logical layers and components.  It's bad practice to talk directly between modules; this is where message passing comes in.  
+
+The jQuery on/off event listener api can work as a simple event event bus, but a seperate service on the Application layer is usually more portable.  
+
+```js
+    function HeaderView() {
+        bus.trigger('header-loaded');
+    }
+    
+    function ApplicationView() {
+        bus.on('header-loaded', function() {
+            // do some header logic now
+        });
+
+        this.header = new HeaderView();
+    }
+
+    var bus = new EventApi();
+    var app = new ApplicationView();
+```
+
+
 - Jquery intro to Monads
+
+`'superstring'.substr(0, 5).indexOf('per')` is not that different from `$('.articles').addClass('red').removeClass('blue')`
+
 - Functional Programming
     - Seperate Procedure from Transformation
 - Func. Programming Examples: 
