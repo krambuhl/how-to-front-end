@@ -1,26 +1,46 @@
 Javascript
 ===
 
+Javascript can be a very unwieldy language.  My goal with this document is to outline best practices in writing reuseable, maintainable code that can simplify working in large teams.
+
 ##Logical Layers
 
-It's generally a smart idea to seperate your project's components into different objects and files.  This helps break up complex logic up to manageable pieces, hopefully avoiding the spegetti code world.
+It's a smart idea to seperate your project's components into different objects and files.  This helps break up complex logic up to manageable pieces, hopefully avoiding the spegetti code world.
 
-- Global (External Libraries)
-- System (Application)
-- Page (Routes)
-- Data (Collections/Models)
-- Layouts (Views)
-    + The layouts described here will likely be similar to the layouts defined in CSS.  
-    + Examples: 
-        *  Site Header
-        *  Site Footer
-        *  Article
-- Modules (Views)
-    + At this layer we describe the modules of the site, often definfing how individual components should operate.  
-    + Examples: 
-        * Hero Slider 
-        * User Card
-        * Dialog
+Layer | Components | Examples
+--- | --- | ---
+Global | External Libraries | bower_components, jquery, underscore
+System | Application, Namespace | AppView, Name.AppView
+Page | Routes | AppRouter, ArticleRouter
+Data | Collections, Models | ArticleCollection, ArticleModel, UserModel
+Layouts | Views | SiteHeaderView, SiteFooterView, ArticleView
+Modules | Views | HeroSliderView, UserCardView, DialogView
+
+#####Global
+
+Vendor libraries belong in the global namespace.  Store vendor libraries seperately from your application files.  Bower is a great way to do this and easily manage dependencies, but even just a seperate `vendor` folder is good.
+
+#####System
+
+Namespaces and top-level functions should be defined at the System level.  This is generally where the application or page startup should happen.
+
+#####Page
+
+Routers and content yielding are defined at the Page level.  They handle the URL and routing structure of your system/application.  Routes define what data and layouts should be yielded (displayed) on screen at any time.
+
+#####Data
+
+Data can just be json files, but this layer data is usually defined as Collections and Models.  Data is often used to fill out templates at the Layout/Modules level.
+
+#####Layout
+
+Define large sections of website's visual layout.  Layouts usually define how groups of individual modules are added to a section/
+
+#####Modules
+
+Describes individual components of a website.  Modules should be self-contained, any external logic should handled at a higher conceptual level.
+
+
 
 ##File Naming
 
@@ -113,7 +133,9 @@ var app = new ApplicationView();
 
 ##Jquery intro to Chaining
 
-`'astring'.substr(0, 5).indexOf('per')` is not that different from `$('.articles').addClass('is-important').attr('important', true)`.  This works by having each method return the related object instance.  Each method operates on wrapped datum, in the first case `substr` and `indexOf` are methods of the String prototype, in the second `addClass` and `attr` are methods of the jquery prototype.
+`'astring'.substr(0, 5).indexOf('per')` is not that different from `$('.articles').addClass('is-important').attr('important', true)`.  
+
+This works because each method returns the calling object instance.  Each method operates on wrapped datum. In the first case `substr` and `indexOf` are methods of the String prototype, in the second `addClass` and `attr` are methods of the jquery prototype.
 
 #####Example
 
@@ -134,7 +156,7 @@ Calculator.prototype.add = function(num) {
 
 Calculator.prototype.result = function() {
     return this.number;
-}
+};
 
 var myCalc = new Calculator(20);
 
@@ -156,7 +178,6 @@ The `pipe` method accepts an function argument.  Each function passed to pipe sh
 
 ```js
 function Monad(data) {
-    this.startData = data;
     this.data = data;
 }
 
@@ -230,15 +251,14 @@ function averageAges(data) {
 }
 
 var people = [
-    { name: 'Bob', age: 63, retired: true },
+    { name: 'Jeremy', age: 63, retired: true },
     { name: 'Scott', age: 63, retired: false },
     { name: 'Annie', age: 27, retired: false },
     { name: 'Barb', age: 60, retired: false }
 ];
 
 var peopleData = new Monad(people);
-var peopleData = new Monad(people);
-myData.pipe(mapAges).pipe(averageAges).result(); // ==> 11
+peopleData.pipe(mapAges).pipe(averageAges).result(); // ==> 11
 
 ```
 
