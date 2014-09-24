@@ -1,9 +1,9 @@
 Javascript
 ===
 
-Javascript can be a very unwieldy language.  My goal with this document is to outline best practices in writing reuseable, maintainable code that can simplify working in large teams.
+Javascript is an easy language to jump into but as projects grow in size it can be a very unwieldy language.  My goal with this document is to outline best practices in writing reuseable, maintainable code that can simplify working in large teams.
 
-##Logical Layers
+##Conceptual Layers
 
 It's a smart idea to seperate your project's components into different objects and files.  This helps break up complex logic up to manageable pieces, hopefully avoiding the spegetti code world.
 
@@ -39,7 +39,6 @@ Define large sections of website's visual layout.  Layouts usually define how gr
 #####Modules
 
 Describes individual components of a website.  Modules should be self-contained, any external logic should handled at a higher conceptual level.
-
 
 
 ##File Naming
@@ -104,6 +103,60 @@ Person.prototype.fullName = function() {
 var aPerson = new Person(19);
 aPerson.age; // ==> 19
 aPerson.fullName(); // ==> JarJar Binks
+```
+
+##Object Oriented Concepts
+
+Basic object oriented concepts can be seen in a seed [object] and tree [instance].  Objects should all have these properties:
+
+- The type of the seed determines what type of tree will grow. [constructor]
+- Each tree has an independent lifetime. [instance]
+- Trees don't know about other trees. [information hiding]
+- Trees can can drop seeds that are slightly different. [inheritence] 
+
+#####Seed Example
+
+```js
+function Seed(type) {
+    this.type = type;
+    this.isGrown = false;
+
+    this.grow = function() {
+        this.isGrown = true;
+    };
+}
+
+var maple = new Seed('maple');
+var birch = new Seed('birch');
+// maple.isGrown ==> false
+// birch.isGrown ==> false
+
+maple.grow();
+// maple.isGrown ==> true
+// birch.isGrown ==> false
+```
+
+Using protoype
+
+```js
+function GenericSeed(type) {
+    this.type = type;
+    this.isGrown = false;
+}
+
+GenericSeed.prototype.grow = function() { this.isGrown = true; };
+
+function MapleSeed() {
+    GenericSeed.prototype.constructor.apply(this, arguments);
+    this.type = 'maple';
+}
+
+MapleSeed.prototype = GenericSeed;
+
+var maple = new MapleSeed();
+// maple.isGrown ==> false
+maple.grow();
+// maple.isGrown ==> true
 ```
 
 
