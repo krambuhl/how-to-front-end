@@ -34,7 +34,7 @@ Standard modules are the most reuseable; they define low-level elments and behav
 }
 ```
 
-The big thing to notice is we are not overwriting the base `input` tag.  We are defining a class that can be used anywhere, later we can extend this class more stragically.  It would make sense to extend the `input` tag in the `.form` standard class instead.  
+The big thing to notice is we are not overwriting the base `input` tag.  We are defining a class that can be used anywhere, later it can be extended more stragically.  It would make sense to extend the `input` tag in the `.form` standard class or another module instead.
 
 ```scss
 // filename: standard/_form.scss
@@ -45,10 +45,34 @@ The big thing to notice is we are not overwriting the base `input` tag.  We are 
 }
 ```
 
+On small websites it might make be reasonable to extend some base tags immediately, but the basic idea is to lower your impact.  An anchor `a` tag can be used for much more than a `.link`  The noise created through extending base tags and writing deep selectors makes large applications harder to maintain.
+
 ####Component Modules
 
+Modules are the core of most appications, descibing custom components to be structured by layouts.  Modules should be writen one to file, so the `_nav.scss` file would contain the `.nav` module.  Modules should only care about what's inside it's root element.  A perfect module can work inside of a container, no matter it's size. 
 
-####Layouts
+#####Example
+
+```scss
+// filename: modules/_usercard.scss
+
+.usercard {}
+.usercard-image { @extend .image; }
+.usercard-name {}
+```
+
+```html
+<div class="usercard">
+    <img class="usercard-image" />
+    <h2 class="usercard-name"></h2>
+</div>
+```
+
+Here we are defining the css for a navigation bar for the HTML below.  Notice we are writing many selectors over nesting selectors, this reduces complexity and improves reuse.  A media query on `.usercard img` is harder to overwrite than `.usercard-image` because it is less specific.  
+
+
+
+####Layout Modules
 ####States
 
 ##File Naming
