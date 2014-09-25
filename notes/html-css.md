@@ -64,15 +64,36 @@ Modules are the core of most appications, descibing custom components to be stru
 ```html
 <div class="usercard">
     <img class="usercard-image" />
-    <h2 class="usercard-name"></h2>
+    <h2 class="usercard-name">Old Gregg</h2>
 </div>
 ```
 
-Here we are defining the css for a navigation bar for the HTML below.  Notice we are writing many selectors over nesting selectors, this reduces complexity and improves reuse.  A media query on `.usercard img` is harder to overwrite than `.usercard-image` because it is less specific.  
-
-
+Here we are defining the css for a navigation bar for the HTML below.  Notice we are writing many selectors over nesting selectors, this reduces complexity and improves reuse.  A media query on `.usercard img` is harder to overwrite than `.usercard-image` because it is more specific.  
 
 ####Layout Modules
+
+While Component modules define smaller more reuseable components, Layout modules define more one-off behavior.  Generally layouts define how multiple components should be positioned inside a html section.  Layout module selectors should be prefixed with `.layout-` or `.l-` to mark them seperately of component modules.
+
+#####Example
+
+```scss
+// filename: layouts/_profile.scss
+
+.l-profile {
+    .usercard { float: left; width: 30%; }
+    .preferences { float: left; width: 70%; }
+}
+```
+
+```html
+<section class="l-profile">
+    <div class="usercard"> ... </div>
+    <div class="preferences"> ... </div>
+</section>
+```
+
+Since our `.usercard` and `.preferences` modules are capable of streching size, we can set define how multiple modules are laid out inside our `.l-profile` element.
+
 ####States
 
 ##File Naming
