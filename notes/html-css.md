@@ -96,6 +96,27 @@ Since our `.usercard` and `.preferences` modules are capable of streching size, 
 
 ####States
 
+State selectors define site and layout states.  These should be used to trigger more complex behavior (when nav is  expanded, content should behave differently)  
+
+#####Examples
+
+```scss
+filename: states/_is-hero-expanded.scss
+
+.is-hero-expanded {
+    .l-hero { height: 100%: }
+    .l-content { height: 0%; }
+}
+```
+
+```html
+<div id="application" class="is-hero-expanded">
+    <section class="l-hero"></section>
+    <section class="l-content"></section>
+</div>
+```
+
+
 ##File Naming
 
 #####Example File Structure
